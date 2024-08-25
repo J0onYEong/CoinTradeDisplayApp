@@ -66,11 +66,6 @@ class WebSocketService: NSObject {
         })
     }
     
-    private func recieveContinuously(completion: @escaping OnReciveHandler) {
-        
-        
-    }
-    
     func resignConnection() {
         self.currentTask?.cancel()
         self.currentTask = nil

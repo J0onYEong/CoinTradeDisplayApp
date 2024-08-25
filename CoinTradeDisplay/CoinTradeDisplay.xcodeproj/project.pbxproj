@@ -224,12 +224,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9D372C7A2C7B4354008AA829 /* DataSoruce */ = {
+		9D372C7A2C7B4354008AA829 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
 				9D372C7B2C7B4370008AA829 /* WebSocketService.swift */,
 			);
-			path = DataSoruce;
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		9D372C822C7B502A008AA829 /* CoinTradeDisplayTests */ = {
@@ -290,7 +290,7 @@
 		9D6F11BB2C780E96007D22F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				9D372C7A2C7B4354008AA829 /* DataSoruce */,
+				9D372C7A2C7B4354008AA829 /* DataSource */,
 				9D6F11BC2C780E96007D22F3 /* Data.h */,
 			);
 			path = Data;
