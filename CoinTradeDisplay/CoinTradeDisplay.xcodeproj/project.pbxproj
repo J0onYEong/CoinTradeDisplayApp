@@ -15,6 +15,10 @@
 		9D372C8F2C7B5049008AA829 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F11972C780E7D007D22F3 /* Domain.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D372C922C7B5049008AA829 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F11DC2C780EB0007D22F3 /* Presentation.framework */; platformFilter = ios; };
 		9D372C932C7B5049008AA829 /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F11DC2C780EB0007D22F3 /* Presentation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D372C992C7B5B9F008AA829 /* RepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C982C7B5B9F008AA829 /* RepositoryInterface.swift */; };
+		9D372C9C2C7B5D44008AA829 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
+		9D372C9E2C7B5DE2008AA829 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
+		9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */; };
 		9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F117E2C780E00007D22F3 /* AppDelegate.swift */; };
 		9D6F11812C780E00007D22F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11802C780E00007D22F3 /* SceneDelegate.swift */; };
 		9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11822C780E00007D22F3 /* ViewController.swift */; };
@@ -158,6 +162,10 @@
 		9D372C7B2C7B4370008AA829 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		9D372C812C7B502A008AA829 /* CoinTradeDisplayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinTradeDisplayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D372C832C7B502A008AA829 /* WebSocketServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketServiceTests.swift; sourceTree = "<group>"; };
+		9D372C982C7B5B9F008AA829 /* RepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryInterface.swift; sourceTree = "<group>"; };
+		9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2Action.swift; sourceTree = "<group>"; };
+		9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2Data.swift; sourceTree = "<group>"; };
+		9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2DTO.swift; sourceTree = "<group>"; };
 		9D6F117B2C780E00007D22F3 /* CoinTradeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinTradeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6F117E2C780E00007D22F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D6F11802C780E00007D22F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -240,6 +248,31 @@
 			path = CoinTradeDisplayTests;
 			sourceTree = "<group>";
 		};
+		9D372C972C7B5B87008AA829 /* RepositoryInterface */ = {
+			isa = PBXGroup;
+			children = (
+				9D372C982C7B5B9F008AA829 /* RepositoryInterface.swift */,
+			);
+			path = RepositoryInterface;
+			sourceTree = "<group>";
+		};
+		9D372C9A2C7B5D2D008AA829 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */,
+				9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		9D372C9F2C7B5E32008AA829 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		9D6F11722C780E00007D22F3 = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +315,8 @@
 		9D6F11982C780E7D007D22F3 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				9D372C9A2C7B5D2D008AA829 /* Entity */,
+				9D372C972C7B5B87008AA829 /* RepositoryInterface */,
 				9D6F11992C780E7D007D22F3 /* Domain.h */,
 			);
 			path = Domain;
@@ -290,6 +325,7 @@
 		9D6F11BB2C780E96007D22F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9D372C9F2C7B5E32008AA829 /* DTO */,
 				9D372C7A2C7B4354008AA829 /* DataSource */,
 				9D6F11BC2C780E96007D22F3 /* Data.h */,
 			);
@@ -472,6 +508,7 @@
 					};
 					9D6F11962C780E7D007D22F3 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 					9D6F11B92C780E96007D22F3 = {
 						CreatedOnToolsVersion = 15.4;
@@ -572,6 +609,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D372C9C2C7B5D44008AA829 /* OrderBookL2Action.swift in Sources */,
+				9D372C9E2C7B5DE2008AA829 /* OrderBookL2Data.swift in Sources */,
+				9D372C992C7B5B9F008AA829 /* RepositoryInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +620,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D372C7C2C7B4370008AA829 /* WebSocketService.swift in Sources */,
+				9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +707,7 @@
 		9D372C882C7B502A008AA829 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -684,6 +726,7 @@
 		9D372C892C7B502A008AA829 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -888,6 +931,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -916,6 +960,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -927,6 +972,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
