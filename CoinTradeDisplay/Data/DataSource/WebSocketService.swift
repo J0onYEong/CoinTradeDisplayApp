@@ -7,24 +7,37 @@
 
 import Foundation
 
-class WebSocketService: NSObject {
+public protocol WebSocketService {
     
-    typealias OnReciveHandler = (String?, Data?) -> Void
+    /// 웹소켓 연결을 시작하고 데이터를 전달받습니다.
+    func startConnection(url: URL, _ completion: @escaping WebSocketServiceOnReciveHandler)
     
-    static let shared = WebSocketService()
+    /// 윕소켓 연결을 종료합니다.
+    func resignConnection()
+    
+    /// 콜백함수를 변경합니다.
+    func changeCompletion(_ completion: @escaping WebSocketServiceOnReciveHandler)
+}
+
+public typealias WebSocketServiceOnReciveHandler = (String?, Data?) -> Void
+
+public class DefaultWebSocketService: NSObject, WebSocketService {
     
     private(set) var session: URLSession!
     private(set) var currentTask: URLSessionWebSocketTask?
-    private(set) var completion: OnReciveHandler?
+    private(set) var completion: WebSocketServiceOnReciveHandler?
     
     let queue = OperationQueue()
     
-    private override init() {
+    public override init() {
         super.init()
+        
+        queue.maxConcurrentOperationCount = 1
+        
         self.session = URLSession(configuration: .default, delegate: self, delegateQueue: queue)
     }
     
-    func startConnection(url: URL, _ completion: @escaping OnReciveHandler) {
+    public func startConnection(url: URL, _ completion: @escaping WebSocketServiceOnReciveHandler) {
         self.currentTask = session.webSocketTask(with: url)
         self.currentTask?.resume()
         self.completion = completion
@@ -45,11 +58,11 @@ class WebSocketService: NSObject {
             case let .success(message):
                 switch message {
                 case let .string(string):
-                    completion?(string, nil)
+                    self.completion?(string, nil)
                 case let .data(data):
-                    completion?(nil, data)
+                    self.completion?(nil, data)
                 @unknown default:
-                    completion?(nil, nil)
+                    self.completion?(nil, nil)
                 }
             case let .failure(error):
                 print("‼️ 웹소켓 에러 수신 \(error)")
@@ -66,21 +79,27 @@ class WebSocketService: NSObject {
         })
     }
     
-    func resignConnection() {
+    public func resignConnection() {
         self.currentTask?.cancel()
         self.currentTask = nil
     }
+    
+    public func changeCompletion(_ completion: @escaping WebSocketServiceOnReciveHandler) {
+        queue.addOperation { [weak self] in
+            self?.completion = completion
+        }
+    }
 }
 
-extension WebSocketService: URLSessionWebSocketDelegate {
+extension DefaultWebSocketService: URLSessionWebSocketDelegate {
     
-    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
+    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("✅ 웹소캣 열림")
         
         startListening()
     }
     
-    func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
+    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
         print("☑️ 웹소캣 닫침")
         
         self.currentTask = nil

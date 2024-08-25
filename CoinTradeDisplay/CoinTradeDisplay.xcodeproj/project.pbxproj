@@ -19,6 +19,7 @@
 		9D372C9C2C7B5D44008AA829 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
 		9D372C9E2C7B5DE2008AA829 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
 		9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */; };
+		9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */; };
 		9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F117E2C780E00007D22F3 /* AppDelegate.swift */; };
 		9D6F11812C780E00007D22F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11802C780E00007D22F3 /* SceneDelegate.swift */; };
 		9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11822C780E00007D22F3 /* ViewController.swift */; };
@@ -166,6 +167,7 @@
 		9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2Action.swift; sourceTree = "<group>"; };
 		9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2Data.swift; sourceTree = "<group>"; };
 		9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2DTO.swift; sourceTree = "<group>"; };
+		9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOrderBook2Repository.swift; sourceTree = "<group>"; };
 		9D6F117B2C780E00007D22F3 /* CoinTradeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinTradeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6F117E2C780E00007D22F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D6F11802C780E00007D22F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -273,6 +275,14 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		9D372CA22C7B6101008AA829 /* ConcreteRepository */ = {
+			isa = PBXGroup;
+			children = (
+				9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */,
+			);
+			path = ConcreteRepository;
+			sourceTree = "<group>";
+		};
 		9D6F11722C780E00007D22F3 = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +335,7 @@
 		9D6F11BB2C780E96007D22F3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9D372CA22C7B6101008AA829 /* ConcreteRepository */,
 				9D372C9F2C7B5E32008AA829 /* DTO */,
 				9D372C7A2C7B4354008AA829 /* DataSource */,
 				9D6F11BC2C780E96007D22F3 /* Data.h */,
@@ -620,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D372C7C2C7B4370008AA829 /* WebSocketService.swift in Sources */,
+				9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */,
 				9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

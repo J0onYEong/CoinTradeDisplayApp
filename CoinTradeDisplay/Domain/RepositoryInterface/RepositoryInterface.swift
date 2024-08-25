@@ -17,5 +17,5 @@ public protocol OrderBook2Repository {
     /// - parameters
     ///     bufferSize: 한번에가져오는 데이터의 양을 의미합니다.
     ///     timeSpan: 데이터를 수신받는 주기를 의미합니다. (밀리세컨)
-    func getDataContinuosly(coinSymbol: String, bufferSize: Int, timeSpan: Int) -> Observable<[OrderBookL2Data]>
+    func getDataContinuosly(bufferSize: Int, timeSpan: Int) -> Observable<[OrderBookL2Data]>
 }
