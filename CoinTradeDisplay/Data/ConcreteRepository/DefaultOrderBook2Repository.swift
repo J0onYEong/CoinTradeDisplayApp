@@ -55,31 +55,26 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
         
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
-        let observable = Observable<[OrderBookL2Data]>.create { [weak self] observer in
+        let publishSubject: PublishSubject<[OrderBookL2Data]> = .init()
+        
+        webSocketService.changeCompletion { [publishSubject, weak self] string, data in
+            var jsonData: Data!
             
-            self?.webSocketService.changeCompletion { string, data in
-                var jsonData: Data!
-                
-                if let string {
-                    jsonData = string.data(using: .utf8)
-                } else if let data {
-                    jsonData = data
-                } else {
-                    return
-                }
-                
-                if let decoded = try? self?.decoder.decode(OrderBookL2DTO.self, from: jsonData) {
-                    
-                    observer.onNext(decoded.data)
-                }
+            if let string {
+                jsonData = string.data(using: .utf8)
+            } else if let data {
+                jsonData = data
+            } else {
+                return
             }
             
-            return Disposables.create {
-                self?.webSocketService.resignConnection()
+            if let decoded = try? self?.decoder.decode(OrderBookL2DTO.self, from: jsonData) {
+                
+                publishSubject.onNext(decoded.data)
             }
         }
         
-        return observable
+        return publishSubject
             .buffer(
                 timeSpan: .milliseconds(5000),
                 count: bufferSize,

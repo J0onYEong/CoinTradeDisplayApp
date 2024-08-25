@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OrderBookL2Data: Codable {
+public struct OrderBookL2Data: Decodable {
     
     enum OrderType: String, Decodable {
         case sell="Sell"
@@ -16,8 +16,8 @@ public struct OrderBookL2Data: Codable {
     
     let symbol: String
     let id: Int
-    let side: String
-    let size: Int
+    let side: OrderType
+    let size: Int?
     let price: Double
     let timestamp: Date
     let transactTime: Date
