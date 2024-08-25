@@ -22,6 +22,8 @@
 		9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */; };
 		9D372CA72C7B753C008AA829 /* CoinStreamUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA62C7B753C008AA829 /* CoinStreamUseCase.swift */; };
 		9D372CA92C7B7630008AA829 /* OrderBookTableVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA82C7B7630008AA829 /* OrderBookTableVO.swift */; };
+		9D372CAC2C7B82B8008AA829 /* Assemblies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CAB2C7B82B8008AA829 /* Assemblies.swift */; };
+		9D372CAE2C7B8369008AA829 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CAD2C7B8369008AA829 /* Injector.swift */; };
 		9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F117E2C780E00007D22F3 /* AppDelegate.swift */; };
 		9D6F11812C780E00007D22F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11802C780E00007D22F3 /* SceneDelegate.swift */; };
 		9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11822C780E00007D22F3 /* ViewController.swift */; };
@@ -172,6 +174,8 @@
 		9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultOrderBook2Repository.swift; sourceTree = "<group>"; };
 		9D372CA62C7B753C008AA829 /* CoinStreamUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinStreamUseCase.swift; sourceTree = "<group>"; };
 		9D372CA82C7B7630008AA829 /* OrderBookTableVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookTableVO.swift; sourceTree = "<group>"; };
+		9D372CAB2C7B82B8008AA829 /* Assemblies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assemblies.swift; sourceTree = "<group>"; };
+		9D372CAD2C7B8369008AA829 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		9D6F117B2C780E00007D22F3 /* CoinTradeDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinTradeDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6F117E2C780E00007D22F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D6F11802C780E00007D22F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -296,6 +300,15 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
+		9D372CAA2C7B828B008AA829 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				9D372CAB2C7B82B8008AA829 /* Assemblies.swift */,
+				9D372CAD2C7B8369008AA829 /* Injector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 		9D6F11722C780E00007D22F3 = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +337,7 @@
 		9D6F117D2C780E00007D22F3 /* CoinTradeDisplay */ = {
 			isa = PBXGroup;
 			children = (
+				9D372CAA2C7B828B008AA829 /* DI */,
 				9D6F117E2C780E00007D22F3 /* AppDelegate.swift */,
 				9D6F11802C780E00007D22F3 /* SceneDelegate.swift */,
 				9D6F11822C780E00007D22F3 /* ViewController.swift */,
@@ -624,9 +638,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D372CAE2C7B8369008AA829 /* Injector.swift in Sources */,
 				9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */,
 				9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */,
 				9D6F11812C780E00007D22F3 /* SceneDelegate.swift in Sources */,
+				9D372CAC2C7B82B8008AA829 /* Assemblies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
