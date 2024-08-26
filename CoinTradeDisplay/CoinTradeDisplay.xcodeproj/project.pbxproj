@@ -16,8 +16,6 @@
 		9D372C922C7B5049008AA829 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F11DC2C780EB0007D22F3 /* Presentation.framework */; platformFilter = ios; };
 		9D372C932C7B5049008AA829 /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F11DC2C780EB0007D22F3 /* Presentation.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D372C992C7B5B9F008AA829 /* RepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C982C7B5B9F008AA829 /* RepositoryInterface.swift */; };
-		9D372C9C2C7B5D44008AA829 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
-		9D372C9E2C7B5DE2008AA829 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
 		9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */; };
 		9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA32C7B6115008AA829 /* DefaultOrderBook2Repository.swift */; };
 		9D372CA72C7B753C008AA829 /* CoinStreamUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA62C7B753C008AA829 /* CoinStreamUseCase.swift */; };
@@ -46,6 +44,8 @@
 		9D6F12292C781623007D22F3 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F12282C781623007D22F3 /* RxCocoa-Dynamic */; };
 		9D6F122A2C781623007D22F3 /* RxCocoa-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F12282C781623007D22F3 /* RxCocoa-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9D6F122C2C78162A007D22F3 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F122B2C78162A007D22F3 /* RxCocoa-Dynamic */; };
+		9DAD50FC2C7C4F8700E82FB0 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
+		9DAD50FD2C7C4F8700E82FB0 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,8 +281,6 @@
 		9D372C9A2C7B5D2D008AA829 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */,
-				9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */,
 				9D372CA82C7B7630008AA829 /* OrderBookTableVO.swift */,
 			);
 			path = Entity;
@@ -292,6 +290,8 @@
 			isa = PBXGroup;
 			children = (
 				9D372CA02C7B5E3F008AA829 /* OrderBookL2DTO.swift */,
+				9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */,
+				9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -666,8 +666,6 @@
 			files = (
 				9D372CA72C7B753C008AA829 /* CoinStreamUseCase.swift in Sources */,
 				9D372CA92C7B7630008AA829 /* OrderBookTableVO.swift in Sources */,
-				9D372C9C2C7B5D44008AA829 /* OrderBookL2Action.swift in Sources */,
-				9D372C9E2C7B5DE2008AA829 /* OrderBookL2Data.swift in Sources */,
 				9D372C992C7B5B9F008AA829 /* RepositoryInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,6 +677,8 @@
 				9D372C7C2C7B4370008AA829 /* WebSocketService.swift in Sources */,
 				9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */,
 				9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */,
+				9DAD50FD2C7C4F8700E82FB0 /* OrderBookL2Action.swift in Sources */,
+				9DAD50FC2C7C4F8700E82FB0 /* OrderBookL2Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

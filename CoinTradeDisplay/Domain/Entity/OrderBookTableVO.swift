@@ -7,9 +7,19 @@
 
 import Foundation
 
+public enum OrderType {
+    case sell
+    case buy
+}
+
 public struct CoinOrderScalar {
-    public let accumulatedAmount: Double
+    public let accumulatedAmount: Int64
     public let price: Double
+    
+    public init(accumulatedAmount: Int64, price: Double) {
+        self.accumulatedAmount = accumulatedAmount
+        self.price = price
+    }
 }
 
 public struct OrderBookTableVO {
@@ -19,4 +29,9 @@ public struct OrderBookTableVO {
     
     /// descending
     public let buyList: [CoinOrderScalar]
+    
+    public init(sellList: [CoinOrderScalar], buyList: [CoinOrderScalar]) {
+        self.sellList = sellList
+        self.buyList = buyList
+    }
 }

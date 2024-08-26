@@ -125,7 +125,7 @@ public class OrderBookL2ViewModel {
         
         
         let coinStream = coinStreamUseCase
-            .coinDataSubject
+            .getStream()
             
         
         let buyStream = coinStream.map { vo in
@@ -146,7 +146,7 @@ public class OrderBookL2ViewModel {
                 var percentage: CGFloat = 0.0
                 
                 if let maxAmount, maxAmount != 0 {
-                    percentage = vo.accumulatedAmount / maxAmount
+                    percentage = CGFloat(vo.accumulatedAmount) / CGFloat(maxAmount)
                 }
                 
                 return PriceAndAmountCellRO(
@@ -176,7 +176,7 @@ public class OrderBookL2ViewModel {
                 
                 var percentage: CGFloat = 0.0
                 if let maxAmount, maxAmount != 0 {
-                    percentage = vo.accumulatedAmount / maxAmount
+                    percentage = CGFloat(vo.accumulatedAmount) / CGFloat(maxAmount)
                 }
                 
                 return PriceAndAmountCellRO(
@@ -259,7 +259,7 @@ public class CoinDataTableDataSource: NSObject, UITableViewDataSource, UITableVi
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        data.value.count
+        return data.value.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -279,7 +279,7 @@ public class CoinDataTableDataSource: NSObject, UITableViewDataSource, UITableVi
 public struct PriceAndAmountCellRO {
     let type: OrderType
     let price: Double
-    let amount: Double
+    let amount: Int64
     let percentage: Double
     
     static func emptyObject(_ type: OrderType) -> PriceAndAmountCellRO {

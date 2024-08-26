@@ -26,6 +26,7 @@ public struct DefaultAssembly: Assembly {
                 webSocketService: webSocketService
             )
         }
+        .inObjectScope(.container)
         
         // MARK: UseCase
         container.register(CoinStreamUseCase.self) { resolver in
@@ -34,6 +35,6 @@ public struct DefaultAssembly: Assembly {
             return DefaultCoinStreamUseCase(
                 orderBook2Repository: orderBook2Repository
             )
-        }.inObjectScope(.container)
+        }
     }
 }
