@@ -47,30 +47,26 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     private func startListening() {
         
-        DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.currentTask?.receive(completionHandler: { result in
-                    switch result {
-                    case let .success(message):
-                        switch message {
-                        case let .string(string):
-                            self.completion?(string, nil)
-                        case let .data(data):
-                            self.completion?(nil, data)
-                        @unknown default:
-                            self.completion?(nil, nil)
-                        }
-                    case let .failure(error):
-                        print("‼️ 웹소켓 에러 수신 \(error)")
-                    }
-                })
+        self.currentTask?.receive(completionHandler: { [weak self] result in
+            
+            guard let self else { return }
+            
+            switch result {
+            case let .success(message):
+                switch message {
+                case let .string(string):
+                    completion?(string, nil)
+                case let .data(data):
+                    completion?(nil, data)
+                @unknown default:
+                    completion?(nil, nil)
+                }
+            case let .failure(error):
+                print("‼️ 웹소켓 에러 수신 \(error)")
             }
             
-            // 타이머가 런루프에 추가되어야 실행됩니다.
-            RunLoop.current.add(self.timer!, forMode: .common)
-        }
+            startListening()
+        })
     }
     
     private func sendPing() {
