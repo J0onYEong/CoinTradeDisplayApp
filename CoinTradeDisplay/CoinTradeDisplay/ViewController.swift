@@ -139,10 +139,6 @@ public class OrderBookL2ViewModel {
         // MARK: Buy
         buyListRO = buyStream.map({ buyData in
             
-            let sumOfSize = buyData.reduce(0) { partialResult, next in
-                partialResult + next.accumulatedAmount
-            }
-            
             let maxAmount = buyData.max { lhs, rhs in lhs.accumulatedAmount < rhs.accumulatedAmount }?.accumulatedAmount
             
             var roList = buyData.map { vo in
@@ -150,7 +146,7 @@ public class OrderBookL2ViewModel {
                 var percentage: CGFloat = 0.0
                 
                 if let maxAmount, maxAmount != 0 {
-                    percentage = round(vo.accumulatedAmount / maxAmount * 10.0) / 10.0
+                    percentage = vo.accumulatedAmount / maxAmount
                 }
                 
                 return PriceAndAmountCellRO(
@@ -180,7 +176,7 @@ public class OrderBookL2ViewModel {
                 
                 var percentage: CGFloat = 0.0
                 if let maxAmount, maxAmount != 0 {
-                    percentage = round(vo.accumulatedAmount / maxAmount * 10.0) / 10.0
+                    percentage = vo.accumulatedAmount / maxAmount
                 }
                 
                 return PriceAndAmountCellRO(

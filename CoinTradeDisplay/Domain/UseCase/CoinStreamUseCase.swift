@@ -59,7 +59,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
                 
                 orderBook2Repository
                     .getDataContinuosly(
-                        bufferSize: 20,
+                        bufferSize: 5,
                         timeSpan: 300
                     )
             }
