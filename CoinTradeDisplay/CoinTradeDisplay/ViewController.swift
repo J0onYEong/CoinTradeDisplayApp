@@ -146,7 +146,7 @@ public class OrderBookL2ViewModel {
                 var percentage: CGFloat = 0.0
                 
                 if let maxAmount, maxAmount != 0 {
-                    percentage = CGFloat(vo.accumulatedAmount) / CGFloat(maxAmount)
+                    percentage = self.circularExp(target: Double(vo.accumulatedAmount), base: Double(maxAmount))
                 }
                 
                 return PriceAndAmountCellRO(
@@ -176,7 +176,7 @@ public class OrderBookL2ViewModel {
                 
                 var percentage: CGFloat = 0.0
                 if let maxAmount, maxAmount != 0 {
-                    percentage = CGFloat(vo.accumulatedAmount) / CGFloat(maxAmount)
+                    percentage = self.circularExp(target: Double(vo.accumulatedAmount), base: Double(maxAmount))
                 }
                 
                 return PriceAndAmountCellRO(
@@ -202,6 +202,10 @@ public class OrderBookL2ViewModel {
                 coinStreamUseCase.startStream()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func circularExp(target: Double, base: Double) -> Double {
+        sqrt(pow(base, 2) - pow(abs(base-target), 2)) / base
     }
 }
 
