@@ -78,16 +78,21 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
         for order in orderList {
             switch order.side {
             case .buy:
-                if accumulatedCoinTradeDictForBuy[order.price] != nil {
-                    accumulatedCoinTradeDictForBuy[order.price]! += (Double(order.size ?? 0))
-                } else {
-                    accumulatedCoinTradeDictForBuy[order.price] = Double(order.size ?? 0)
+                if let size = order.size {
+                    if accumulatedCoinTradeDictForBuy[order.price] != nil {
+                        accumulatedCoinTradeDictForBuy[order.price]! += (Double(size))
+                    } else {
+                        accumulatedCoinTradeDictForBuy[order.price] = Double(size)
+                    }
                 }
+                
             case .sell:
-                if accumulatedCoinTradeDictForSell[order.price] != nil {
-                    accumulatedCoinTradeDictForSell[order.price]! += (Double(order.size ?? 0))
-                } else {
-                    accumulatedCoinTradeDictForSell[order.price] = Double(order.size ?? 0)
+                if let size = order.size {
+                    if accumulatedCoinTradeDictForSell[order.price] != nil {
+                        accumulatedCoinTradeDictForSell[order.price]! += (Double(size))
+                    } else {
+                        accumulatedCoinTradeDictForSell[order.price] = Double(size)
+                    }
                 }
             }
         }
