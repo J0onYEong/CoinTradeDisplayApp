@@ -28,7 +28,7 @@ public struct DefaultAssembly: Assembly {
         }
         
         // MARK: UseCase
-        container.register(DefaultCoinStreamUseCase.self) { resolver in
+        container.register(CoinStreamUseCase.self) { resolver in
             let orderBook2Repository = resolver.resolve(OrderBook2Repository.self)!
             
             return DefaultCoinStreamUseCase(

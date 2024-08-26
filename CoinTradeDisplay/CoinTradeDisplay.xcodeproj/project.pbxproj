@@ -24,6 +24,7 @@
 		9D372CA92C7B7630008AA829 /* OrderBookTableVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CA82C7B7630008AA829 /* OrderBookTableVO.swift */; };
 		9D372CAC2C7B82B8008AA829 /* Assemblies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CAB2C7B82B8008AA829 /* Assemblies.swift */; };
 		9D372CAE2C7B8369008AA829 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372CAD2C7B8369008AA829 /* Injector.swift */; };
+		9D372CB02C7C1534008AA829 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D372CAF2C7C1534008AA829 /* RxCocoa-Dynamic */; };
 		9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F117E2C780E00007D22F3 /* AppDelegate.swift */; };
 		9D6F11812C780E00007D22F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11802C780E00007D22F3 /* SceneDelegate.swift */; };
 		9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F11822C780E00007D22F3 /* ViewController.swift */; };
@@ -123,6 +124,16 @@
 				9D372C8F2C7B5049008AA829 /* Domain.framework in Embed Frameworks */,
 				9D372C8B2C7B5049008AA829 /* Data.framework in Embed Frameworks */,
 				9D372C932C7B5049008AA829 /* Presentation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D372CB22C7C1534008AA829 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D372CB02C7C1534008AA829 /* RxCocoa-Dynamic in Frameworks */,
 				9D6F11EA2C780F26007D22F3 /* Domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -493,6 +505,7 @@
 				9D6F11B62C780E96007D22F3 /* Sources */,
 				9D6F11B72C780E96007D22F3 /* Frameworks */,
 				9D6F11B82C780E96007D22F3 /* Resources */,
+				9D372CB22C7C1534008AA829 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -501,6 +514,7 @@
 			);
 			name = Data;
 			packageProductDependencies = (
+				9D372CAF2C7C1534008AA829 /* RxCocoa-Dynamic */,
 			);
 			productName = Data;
 			productReference = 9D6F11BA2C780E96007D22F3 /* Data.framework */;
@@ -1290,6 +1304,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9D372CAF2C7C1534008AA829 /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D6F11E72C780EE8007D22F3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
 		9D6F12142C7810B4007D22F3 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D6F11E82C780F1A007D22F3 /* XCRemoteSwiftPackageReference "Swinject" */;

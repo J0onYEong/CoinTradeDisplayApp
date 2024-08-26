@@ -27,6 +27,8 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
             self?.webSocketService
                 .startConnection(url: url) { [singleObserver] string, data in
                     
+                    guard let self else { return }
+                    
                     var jsonData: Data!
                     
                     if let string {
@@ -37,13 +39,16 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
                         return
                     }
                     
-                    if let decoded = try? self?.decoder.decode(OrderBookL2DTO.self, from: jsonData) {
+                    do {
+                        let decoded = try self.decoder.decode(OrderBookL2DTO.self, from: jsonData)
                         
                         if decoded.action == .partial {
                             
                             // partial상태일 때만 이벤트를 전달한다.
                             singleObserver(.success(decoded.data))
                         }
+                    } catch {
+                        print("파싱 실패, \(error) \(error.localizedDescription)")
                     }
                 }
             

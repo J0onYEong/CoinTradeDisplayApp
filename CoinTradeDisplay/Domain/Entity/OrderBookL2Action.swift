@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum OrderBookL2Action: Decodable {
+public enum OrderBookL2Action: String, Decodable {
     case partial
     case update
     case delete

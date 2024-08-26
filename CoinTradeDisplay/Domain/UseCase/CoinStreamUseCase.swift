@@ -11,7 +11,7 @@ import RxRelay
  
 public protocol CoinStreamUseCase {
     
-    /// #1. 내부 스트림에 접근할 수 있습니다.
+    /// #1. 내부 스트림에 접근할 수 있습니다. 각항목당 최대 10개의 데이터를 가지고 있습니다.
     var coinDataSubject: BehaviorSubject<OrderBookTableVO> { get }
     
     /// #2. 웹소켓 스트림을 시작합니다.
@@ -49,7 +49,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
             .map { [weak self] orderList in
                 
                 guard let self else { return }
-                
+//                print("최초 이벤트 전송")
                 self.updateAndEmit(orderList: orderList)
             }
         
@@ -65,6 +65,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
             }
             .subscribe(onNext: { [weak self] orderList in
                 
+//                print("지속 이벤트 전송")
                 self?.updateAndEmit(orderList: orderList)
             })
     }
@@ -81,27 +82,31 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
                 if accumulatedCoinTradeDictForBuy[order.price] != nil {
                     accumulatedCoinTradeDictForBuy[order.price]! += (Double(order.size ?? 0))
                 } else {
-                    accumulatedCoinTradeDictForBuy[order.price] = 0.0
+                    accumulatedCoinTradeDictForBuy[order.price] = Double(order.size ?? 0)
                 }
             case .sell:
                 if accumulatedCoinTradeDictForSell[order.price] != nil {
                     accumulatedCoinTradeDictForSell[order.price]! += (Double(order.size ?? 0))
                 } else {
-                    accumulatedCoinTradeDictForSell[order.price] = 0.0
+                    accumulatedCoinTradeDictForSell[order.price] = Double(order.size ?? 0)
                 }
             }
         }
         
         // DESC
-        let buyList = accumulatedCoinTradeDictForBuy.keys.sorted(by: { $0 > $1 })[0..<10].map { key in
+        let buyListLimit = min(accumulatedCoinTradeDictForBuy.keys.count, 10)
+        let buyList = accumulatedCoinTradeDictForBuy.keys.sorted(by: { $0 > $1 })[0..<buyListLimit].map { key in
             CoinOrderScalar(
                 accumulatedAmount: self.accumulatedCoinTradeDictForBuy[key]!,
                 price: key
             )
         }
-        let sellList = accumulatedCoinTradeDictForSell.keys.sorted(by: { $0 < $1 })[0..<10].map { key in
+        
+        // ASC
+        let sellListLimit = min(accumulatedCoinTradeDictForSell.keys.count, 10)
+        let sellList = accumulatedCoinTradeDictForSell.keys.sorted(by: { $0 < $1 })[0..<sellListLimit].map { key in
             CoinOrderScalar(
-                accumulatedAmount: self.accumulatedCoinTradeDictForBuy[key]!,
+                accumulatedAmount: self.accumulatedCoinTradeDictForSell[key]!,
                 price: key
             )
         }

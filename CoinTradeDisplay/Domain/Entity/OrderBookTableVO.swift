@@ -8,15 +8,15 @@
 import Foundation
 
 public struct CoinOrderScalar {
-    var accumulatedAmount: Double
-    var price: Double
+    public let accumulatedAmount: Double
+    public let price: Double
 }
 
 public struct OrderBookTableVO {
     
     /// ascending
-    var sellList: [CoinOrderScalar]
+    public let sellList: [CoinOrderScalar]
     
     /// descending
-    var buyList: [CoinOrderScalar]
+    public let buyList: [CoinOrderScalar]
 }

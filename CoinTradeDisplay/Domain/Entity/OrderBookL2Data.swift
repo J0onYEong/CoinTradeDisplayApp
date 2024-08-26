@@ -7,21 +7,20 @@
 
 import Foundation
 
+public enum OrderType: String, Decodable {
+    case sell="Sell"
+    case buy="Buy"
+}
+
 public struct OrderBookL2Data: Decodable {
-    
-    enum OrderType: String, Decodable {
-        case sell="Sell"
-        case buy="Buy"
-    }
     
     let symbol: String
     let id: Int
     let side: OrderType
     let size: Int?
     let price: Double
-    let timestamp: Date
-    let transactTime: Date
-    
+    let timestamp: String
+    let transactTime: String
     enum CodingKeys: String, CodingKey {
         case symbol
         case id
