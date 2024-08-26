@@ -22,10 +22,10 @@ class ViewController: UIViewController {
         return button
     }()
     
-    let sellTable = StaticSizeTableView(cellCount: 10, cellHeight: 40)
+    let sellTable = StaticSizeTableView(cellCount: 20, cellHeight: 30)
     let sellTableDataSource = CoinDataTableDataSource(type: .sell)
     
-    let buyTable = StaticSizeTableView(cellCount: 10, cellHeight: 40)
+    let buyTable = StaticSizeTableView(cellCount: 20, cellHeight: 30)
     let buyTableDataSource = CoinDataTableDataSource(type: .buy)
 
     let disposeBag = DisposeBag()
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             startStreamButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startStreamButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            startStreamButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
             stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
@@ -157,8 +157,8 @@ public class OrderBookL2ViewModel {
                 )
             }
             
-            if roList.count < 10 {
-                let emptySize = 10 - roList.count
+            if roList.count < 20 {
+                let emptySize = 20 - roList.count
                 let emptyRoList: [PriceAndAmountCellRO] = (0..<emptySize).map { _ in .emptyObject(.buy) }
                 roList.append(contentsOf: emptyRoList)
             }
@@ -187,8 +187,8 @@ public class OrderBookL2ViewModel {
                 )
             }
             
-            if roList.count < 10 {
-                let emptySize = 10 - roList.count
+            if roList.count < 20 {
+                let emptySize = 20 - roList.count
                 let emptyRoList: [PriceAndAmountCellRO] = (0..<emptySize).map { _ in .emptyObject(.sell) }
                 roList.append(contentsOf: emptyRoList)
             }
@@ -241,10 +241,19 @@ public class CoinDataTableDataSource: NSObject, UITableViewDataSource, UITableVi
         
         data
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe { [weak self] _ in
-                self?.tableView?.reloadData()
-                print("\(type) reload")
-            }
+            .subscribe (onNext: { [weak self] newData in
+                guard let self else { return }
+                
+                tableView?.beginUpdates()
+                
+                for (index, item) in newData.enumerated() {
+                    if let cell = self.tableView?.cellForRow(at: IndexPath(row: index, section: 0)) as? Cell {
+                        cell.render(item)
+                    }
+                }
+                
+                tableView?.endUpdates()
+            })
             .disposed(by: disposeBag)
     }
     
@@ -323,25 +332,25 @@ public class PriceAndAmountCell: UITableViewCell {
         guard let ro else { return }
         
         if ro.type == .buy {
-            let width = contentView.frame.width
-            let halfWidth = (width)/2
-            let x = halfWidth + halfWidth * (1-ro.percentage)
-            let bgWidth = width-x
+            let width = self.contentView.frame.width
+            let halfWidth = (width) / 2
+            let x = halfWidth + halfWidth * (1 - ro.percentage)
+            let bgWidth = width - x
             
-            percentageBackground.frame = .init(
+            self.percentageBackground.frame = .init(
                 origin: .init(x: x, y: 0),
-                size: .init(width: bgWidth, height: contentView.frame.height)
+                size: .init(width: bgWidth, height: self.contentView.frame.height)
             )
             
         } else {
             
-            let width = contentView.frame.width
-            let halfWidth = (width)/2
+            let width = self.contentView.frame.width
+            let halfWidth = (width) / 2
             let bgWidth = halfWidth * ro.percentage
             
-            percentageBackground.frame = .init(
+            self.percentageBackground.frame = .init(
                 origin: .init(x: 0, y: 0),
-                size: .init(width: bgWidth, height: contentView.frame.height)
+                size: .init(width: bgWidth, height: self.contentView.frame.height)
             )
         }
     }
@@ -390,8 +399,9 @@ public class PriceAndAmountCell: UITableViewCell {
     private func setLabel(label1: UILabel, label2: UILabel, accentColor: UIColor, ro: PriceAndAmountCellRO) {
         
         label1.text = String(ro.amount)
+        label1.font = UIFont.systemFont(ofSize: 12)
         label2.text = String(ro.price)
-        label2.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label2.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label2.textColor = accentColor
     }
 }

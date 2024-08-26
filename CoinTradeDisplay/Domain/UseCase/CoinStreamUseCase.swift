@@ -57,8 +57,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
         self.streamDisposable = initialFetch
             .flatMap { [orderBook2Repository] _ in
                 
-                orderBook2Repository
-                    .getDataContinuosly(
+                orderBook2Repository.getDataContinuosly(
                         bufferSize: 5,
                         timeSpan: 300
                     )
@@ -94,7 +93,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
         }
         
         // DESC
-        let buyListLimit = min(accumulatedCoinTradeDictForBuy.keys.count, 10)
+        let buyListLimit = min(accumulatedCoinTradeDictForBuy.keys.count, 20)
         let buyList = accumulatedCoinTradeDictForBuy.keys.sorted(by: { $0 > $1 })[0..<buyListLimit].map { key in
             CoinOrderScalar(
                 accumulatedAmount: self.accumulatedCoinTradeDictForBuy[key]!,
@@ -103,7 +102,7 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
         }
         
         // ASC
-        let sellListLimit = min(accumulatedCoinTradeDictForSell.keys.count, 10)
+        let sellListLimit = min(accumulatedCoinTradeDictForSell.keys.count, 20)
         let sellList = accumulatedCoinTradeDictForSell.keys.sorted(by: { $0 < $1 })[0..<sellListLimit].map { key in
             CoinOrderScalar(
                 accumulatedAmount: self.accumulatedCoinTradeDictForSell[key]!,

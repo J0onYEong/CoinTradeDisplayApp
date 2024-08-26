@@ -43,33 +43,34 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
         self.completion = completion
     }
     
+    var timer: Timer?
+    
     private func startListening() {
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [weak self] _ in
-            self?.sendPing()
-        }
         
-        self.currentTask?.receive(completionHandler: { [weak self, timer] result in
-            
-            timer.invalidate()
-            
-            guard let self else { return }
-            
-            switch result {
-            case let .success(message):
-                switch message {
-                case let .string(string):
-                    self.completion?(string, nil)
-                case let .data(data):
-                    self.completion?(nil, data)
-                @unknown default:
-                    self.completion?(nil, nil)
-                }
-            case let .failure(error):
-                print("‼️ 웹소켓 에러 수신 \(error)")
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
+                
+                self.currentTask?.receive(completionHandler: { result in
+                    switch result {
+                    case let .success(message):
+                        switch message {
+                        case let .string(string):
+                            self.completion?(string, nil)
+                        case let .data(data):
+                            self.completion?(nil, data)
+                        @unknown default:
+                            self.completion?(nil, nil)
+                        }
+                    case let .failure(error):
+                        print("‼️ 웹소켓 에러 수신 \(error)")
+                    }
+                })
             }
             
-            startListening()
-        })
+            // 타이머가 런루프에 추가되어야 실행됩니다.
+            RunLoop.current.add(self.timer!, forMode: .common)
+        }
     }
     
     private func sendPing() {
