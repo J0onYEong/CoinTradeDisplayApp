@@ -49,6 +49,7 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
             var timePassed = 0
             let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
                 timePassed+=3
+                print("[웹소켓 id: \(identifier)]")
                 print("요청: \(Self.requestCount), 수신: \(Self.recieveCount) \n> 수신/s: \(round(Double(Self.recieveCount)/Double(timePassed)*100)/100)\n")
             }
             RunLoop.main.add(timer, forMode: .common)
