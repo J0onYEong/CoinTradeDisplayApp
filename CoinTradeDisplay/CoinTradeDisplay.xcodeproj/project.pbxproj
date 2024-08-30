@@ -50,6 +50,7 @@
 		9D8AABE42C8158340044B037 /* OrderBookL2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABE22C8157FB0044B037 /* OrderBookL2ViewModel.swift */; };
 		9D8AABE62C81589B0044B037 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */; };
 		9D8AABE72C81589B0044B037 /* RxCocoa-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9D8AABE92C8160EB0044B037 /* CoinRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABE82C8160EB0044B037 /* CoinRequest.swift */; };
 		9DAD50FC2C7C4F8700E82FB0 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
 		9DAD50FD2C7C4F8700E82FB0 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
 /* End PBXBuildFile section */
@@ -212,6 +213,7 @@
 		9D8AABDE2C81578C0044B037 /* PriceAndAmountCellRO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAndAmountCellRO.swift; sourceTree = "<group>"; };
 		9D8AABE02C8157AD0044B037 /* StaticSizeTableView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticSizeTableView+DataSource.swift"; sourceTree = "<group>"; };
 		9D8AABE22C8157FB0044B037 /* OrderBookL2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2ViewModel.swift; sourceTree = "<group>"; };
+		9D8AABE82C8160EB0044B037 /* CoinRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				9D372C7B2C7B4370008AA829 /* WebSocketService.swift */,
+				9D8AABE82C8160EB0044B037 /* CoinRequest.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				9D372CA42C7B6115008AA829 /* DefaultOrderBook2Repository.swift in Sources */,
 				9D372CA12C7B5E3F008AA829 /* OrderBookL2DTO.swift in Sources */,
 				9DAD50FD2C7C4F8700E82FB0 /* OrderBookL2Action.swift in Sources */,
+				9D8AABE92C8160EB0044B037 /* CoinRequest.swift in Sources */,
 				9DAD50FC2C7C4F8700E82FB0 /* OrderBookL2Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,5 +23,5 @@ public protocol OrderBook2Repository {
     func joinStream(itemLimit: Int) -> Observable<OrderBookTableVO>
     
     /// 스트림을 종료합니다.
-    func stopStream()
+    func stopStream(coinSymbol: String)
 }

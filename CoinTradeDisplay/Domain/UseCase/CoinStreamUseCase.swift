@@ -48,6 +48,6 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
     
     public func stopStream() {
         orderBook2Repository
-            .stopStream()
+            .stopStream(coinSymbol: "XBTUSD")
     }
 }

@@ -20,9 +20,11 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
     private(set) var accumulatedCoinTradeDictForBuy: [Price: Amount] = [:]
     private(set) var accumulatedCoinTradeDictForSell: [Price: Amount] = [:]
     
+    /// 딕셔너리가 업데이트 된 경우 이벤트를 방출하는 옵저버블
     private var updateSignal: BehaviorSubject<Void> = .init(value: ())
     
-    private let publishSubject: PublishSubject<OrderBookL2DTO> = .init()
+    
+    private let dataFromWebSocket: PublishSubject<OrderBookL2DTO> = .init()
     
     private var streamHolder: Disposable?
     
@@ -32,10 +34,10 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
     
     public func startSteam(coinSymbol: String) {
         
-        let url = URL(string: "wss://ws.bitmex.com/realtime?subscribe=orderBookL2:\(coinSymbol)")!
+        let request: CoinRequest = .orderbookL2(symbol: coinSymbol)
         
         webSocketService
-            .startConnection(url: url) { [publishSubject, weak self] string, data in
+            .startConnection(url: request.url) { [dataFromWebSocket, weak self] string, data in
                 var jsonData: Data!
                 
                 if let string {
@@ -48,16 +50,19 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
                 
                 if let decoded = try? self?.decoder.decode(OrderBookL2DTO.self, from: jsonData) {
                     
-                    publishSubject.onNext(decoded)
+                    dataFromWebSocket.onNext(decoded)
                 }
             }
     }
     
     public func setSream(bufferSize: Int, timeSpan: Int) {
         
+        // 이미스트림이 진행중
+        if streamHolder != nil { return }
+        
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
-        streamHolder = publishSubject
+        streamHolder = dataFromWebSocket
             .buffer(
                 timeSpan: .milliseconds(5000),
                 count: bufferSize,
@@ -100,10 +105,13 @@ public class DefaultOrderBook2Repository: OrderBook2Repository {
             })
     }
     
-    public func stopStream() {
+    public func stopStream(coinSymbol: String) {
+        
+        let request: CoinRequest = .orderbookL2(symbol: coinSymbol)
+        
         streamHolder?.dispose()
         streamHolder = nil
-        webSocketService.resignConnection()
+        webSocketService.resignConnection(url: request.url)
     }
     
     private func fetchItems(itemLimit: Int) -> OrderBookTableVO {
