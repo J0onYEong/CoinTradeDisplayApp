@@ -19,6 +19,7 @@ public class OrderBookL2ViewModel {
     
     // Input
     let startStreamButtonClicked: PublishRelay<Void> = .init()
+    let connectStreamButtonClicked: PublishRelay<Void> = .init()
     
     // Output
     private(set) var buyListRO: Driver<[PriceAndAmountCellRO]>?
@@ -29,11 +30,31 @@ public class OrderBookL2ViewModel {
     init(coinStreamUseCase: CoinStreamUseCase) {
         self.coinStreamUseCase = coinStreamUseCase
         
+        // MARK: 스트림 시작
+        startStreamButtonClicked
+            .subscribe(onNext: { [coinStreamUseCase] _ in
+                coinStreamUseCase.startStream()
+            })
+            .disposed(by: disposeBag)
         
-        let coinStream = coinStreamUseCase
-            .getStream()
+        // MARK: 스트림 구독
+        let coinStream = BehaviorSubject<OrderBookTableVO>(
+            value: .init(
+                sellList: [],
+                buyList: []
+            )
+        )
+        
+        // 구독버튼 누를시 스트림 연결
+        connectStreamButtonClicked
+            .flatMap { [coinStreamUseCase] _ in
+                coinStreamUseCase
+                    .getStream()
+            }
+            .share()
+            .bind(to: coinStream)
+            .disposed(by: disposeBag)
             
-        
         let buyStream = coinStream.map { vo in
             vo.buyList
         }
@@ -102,12 +123,6 @@ public class OrderBookL2ViewModel {
             return roList
         })
         .asDriver(onErrorDriveWith: .never())
-        
-        startStreamButtonClicked
-            .subscribe(onNext: { [coinStreamUseCase] _ in
-                coinStreamUseCase.startStream()
-            })
-            .disposed(by: disposeBag)
     }
     
     func circularExp(target: Double, base: Double) -> Double {

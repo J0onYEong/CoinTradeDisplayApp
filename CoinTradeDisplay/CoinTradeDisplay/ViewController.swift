@@ -19,7 +19,14 @@ class ViewController: UIViewController {
     let startStreamButton: UIButton = {
         let button = UIButton()
         button.setTitle("스트림 시작", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.green, for: .normal)
+        return button
+    }()
+    
+    let connectStreamButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("스트림 연결", for: .normal)
+        button.setTitleColor(.red, for: .normal)
         return button
     }()
     
@@ -60,14 +67,18 @@ class ViewController: UIViewController {
     }
     
     func setAutoLayout() {
-        let stack = UIStackView(arrangedSubviews: [buyTable, sellTable])
-        stack.distribution = .fillEqually
-        stack.alignment = .center
-        stack.axis = .horizontal
+        let tableStack = UIStackView(arrangedSubviews: [buyTable, sellTable])
+        tableStack.distribution = .fillEqually
+        tableStack.alignment = .center
+        tableStack.axis = .horizontal
+        
+        let buttonStack = UIStackView(arrangedSubviews: [startStreamButton, connectStreamButton])
+        buttonStack.alignment = .center
+        buttonStack.axis = .horizontal
         
         [
-            startStreamButton,
-            stack
+            buttonStack,
+            tableStack
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -75,12 +86,12 @@ class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            startStreamButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startStreamButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
-            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            stack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            tableStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            tableStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
         ])
     }
     
@@ -91,6 +102,10 @@ class ViewController: UIViewController {
         // Input
         startStreamButton.rx.tap
             .bind(to: viewModel.startStreamButtonClicked)
+            .disposed(by: disposeBag)
+        
+        connectStreamButton.rx.tap
+            .bind(to: viewModel.connectStreamButtonClicked)
             .disposed(by: disposeBag)
         
         // Output
