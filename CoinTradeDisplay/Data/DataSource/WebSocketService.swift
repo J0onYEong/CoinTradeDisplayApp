@@ -30,11 +30,16 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     let lock = NSLock()
     
-    let queue = OperationQueue()
+    
     
     #if DEBUG
-    static var requestCount: Int = 0
-    static var recieveCount: Int = 0
+    private let countQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+    private var requestCount: [String: Int] = [:]
+    private var recieveCount: [String: Int] = [:]
     #endif
     
     public override init() {
@@ -43,14 +48,25 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     public func startConnection(url: URL, _ completion: @escaping WebSocketServiceOnReciveHandler) {
 
-        if let identifier = getIdentifier(url: url) {
+        if let identifier = getIdentifier(url: url), currentTask[identifier] == nil {
             
             #if DEBUG
             var timePassed = 0
-            let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+            countQueue.addOperation { [weak self] in
+                self?.requestCount[identifier] = 0
+                self?.recieveCount[identifier] = 0
+            }
+            let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] _ in
                 timePassed+=3
-                print("[웹소켓 id: \(identifier)]")
-                print("요청: \(Self.requestCount), 수신: \(Self.recieveCount) \n> 수신/s: \(round(Double(Self.recieveCount)/Double(timePassed)*100)/100)\n")
+                
+                self?.countQueue.addOperation { [weak self, identifier] in
+                    guard let self else { return }
+                    if let requestCount = requestCount[identifier], let recieveCount = recieveCount[identifier] {
+                        
+                        print("[웹소켓 id: \(identifier)]")
+                        print("요청: \(requestCount), 수신: \(recieveCount) \n> 수신/s: \(round(Double(recieveCount)/Double(timePassed)*100)/100)\n")
+                    }
+                }
             }
             RunLoop.main.add(timer, forMode: .common)
             #endif
@@ -80,16 +96,20 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     private func startListening(identifier: String) {
         #if DEBUG
-        Self.requestCount+=1
+        countQueue.addOperation { [weak self, identifier] in
+            self?.requestCount[identifier]? += 1
+        }
         #endif
         
         // 수신후 재요청이, Timer를 사용한 연속호출(30ms)보다 더 수신량이 많았음
         currentTask[identifier]?.receive(completionHandler: { [weak self] result in
-            #if DEBUG
-            Self.recieveCount+=1
-            #endif
             
             guard let self else { return }
+            #if DEBUG
+            countQueue.addOperation { [weak self, identifier] in
+                self?.recieveCount[identifier]? += 1
+            }
+            #endif
             
             switch result {
             case let .success(message):
@@ -119,7 +139,7 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     }
     
     private func resignConnection(identifier: String) {
-        sessionQueue[identifier]?.addOperation { [weak self] in
+        sessionQueue[identifier]?.addOperation { [weak self, identifier] in
             guard let self else { return }
             
             defer {
@@ -130,6 +150,13 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
             self.currentTask.removeValue(forKey: identifier)
             self.completion.removeValue(forKey: identifier)
             self.session.removeValue(forKey: identifier)
+            
+            #if DEBUG
+            self.countQueue.addOperation { [weak self, identifier] in
+                self?.requestCount.removeValue(forKey: identifier)
+                self?.recieveCount.removeValue(forKey: identifier)
+            }
+            #endif
         }
     }
     
