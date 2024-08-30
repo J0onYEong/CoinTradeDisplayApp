@@ -12,13 +12,15 @@ final class WebSocketServiceTests: XCTestCase {
     
     var webSocketService: WebSocketService!
     
+    let testURL = URL(string: "wss://ws.bitmex.com/realtime?subscribe=orderBookL2:XBTUSD")!
+    
     override func setUp() {
         super.setUp()
-        webSocketService = WebSocketService.shared
+        webSocketService = DefaultWebSocketService()
     }
     
     override func tearDown() {
-        webSocketService.resignConnection()
+        webSocketService.resignConnection(url: testURL)
         webSocketService = nil
         super.tearDown()
     }
@@ -27,7 +29,7 @@ final class WebSocketServiceTests: XCTestCase {
         let expectation = self.expectation(description: "응답 10개수신")
         var count = 0
         
-        let testURL = URL(string: "wss://ws.bitmex.com/realtime?subscribe=orderBookL2:XBTUSD")!
+        
         
         webSocketService.startConnection(url: testURL) { (string, data) in
             if let string = string {

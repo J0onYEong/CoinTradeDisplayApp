@@ -32,6 +32,11 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     let queue = OperationQueue()
     
+    #if DEBUG
+    static var requestCount: Int = 0
+    static var recieveCount: Int = 0
+    #endif
+    
     public override init() {
         super.init()
     }
@@ -39,6 +44,15 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     public func startConnection(url: URL, _ completion: @escaping WebSocketServiceOnReciveHandler) {
 
         if let identifier = getIdentifier(url: url) {
+            
+            #if DEBUG
+            var timePassed = 0
+            let timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                timePassed+=3
+                print("요청: \(Self.requestCount), 수신: \(Self.recieveCount) \n> 수신/s: \(round(Double(Self.recieveCount)/Double(timePassed)*100)/100)\n")
+            }
+            RunLoop.main.add(timer, forMode: .common)
+            #endif
             
             let queue = OperationQueue()
             queue.maxConcurrentOperationCount = 1
@@ -63,12 +77,16 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
         }
     }
     
-    var timer: Timer?
-    
     private func startListening(identifier: String) {
+        #if DEBUG
+        Self.requestCount+=1
+        #endif
         
         // 수신후 재요청이, Timer를 사용한 연속호출(30ms)보다 더 수신량이 많았음
         currentTask[identifier]?.receive(completionHandler: { [weak self] result in
+            #if DEBUG
+            Self.recieveCount+=1
+            #endif
             
             guard let self else { return }
             
