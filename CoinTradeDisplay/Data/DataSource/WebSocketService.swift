@@ -47,6 +47,7 @@ public class DefaultWebSocketService: NSObject, WebSocketService {
     
     private func startListening() {
         
+        // 수신후 재요청이, Timer를 사용한 연속호출(30ms)보다 더 수신량이 많았음
         self.currentTask?.receive(completionHandler: { [weak self] result in
             
             guard let self else { return }

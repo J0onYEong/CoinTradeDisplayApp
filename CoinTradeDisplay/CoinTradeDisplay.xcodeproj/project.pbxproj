@@ -44,6 +44,12 @@
 		9D6F12292C781623007D22F3 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F12282C781623007D22F3 /* RxCocoa-Dynamic */; };
 		9D6F122A2C781623007D22F3 /* RxCocoa-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F12282C781623007D22F3 /* RxCocoa-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9D6F122C2C78162A007D22F3 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D6F122B2C78162A007D22F3 /* RxCocoa-Dynamic */; };
+		9D8AABDD2C81575D0044B037 /* PriceAndAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABDC2C81575D0044B037 /* PriceAndAmountCell.swift */; };
+		9D8AABDF2C81578C0044B037 /* PriceAndAmountCellRO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABDE2C81578C0044B037 /* PriceAndAmountCellRO.swift */; };
+		9D8AABE12C8157AD0044B037 /* StaticSizeTableView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABE02C8157AD0044B037 /* StaticSizeTableView+DataSource.swift */; };
+		9D8AABE42C8158340044B037 /* OrderBookL2ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AABE22C8157FB0044B037 /* OrderBookL2ViewModel.swift */; };
+		9D8AABE62C81589B0044B037 /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */; };
+		9D8AABE72C81589B0044B037 /* RxCocoa-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		9DAD50FC2C7C4F8700E82FB0 /* OrderBookL2Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9D2C7B5DE2008AA829 /* OrderBookL2Data.swift */; };
 		9DAD50FD2C7C4F8700E82FB0 /* OrderBookL2Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D372C9B2C7B5D44008AA829 /* OrderBookL2Action.swift */; };
 /* End PBXBuildFile section */
@@ -168,6 +174,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9D8AABE72C81589B0044B037 /* RxCocoa-Dynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +208,10 @@
 		9D6F11BC2C780E96007D22F3 /* Data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		9D6F11DC2C780EB0007D22F3 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D6F11DE2C780EB0007D22F3 /* Presentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
+		9D8AABDC2C81575D0044B037 /* PriceAndAmountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAndAmountCell.swift; sourceTree = "<group>"; };
+		9D8AABDE2C81578C0044B037 /* PriceAndAmountCellRO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAndAmountCellRO.swift; sourceTree = "<group>"; };
+		9D8AABE02C8157AD0044B037 /* StaticSizeTableView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaticSizeTableView+DataSource.swift"; sourceTree = "<group>"; };
+		9D8AABE22C8157FB0044B037 /* OrderBookL2ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBookL2ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8AABE62C81589B0044B037 /* RxCocoa-Dynamic in Frameworks */,
 				9D6F11EF2C780F2F007D22F3 /* Domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +365,7 @@
 				9D6F117E2C780E00007D22F3 /* AppDelegate.swift */,
 				9D6F11802C780E00007D22F3 /* SceneDelegate.swift */,
 				9D6F11822C780E00007D22F3 /* ViewController.swift */,
+				9D8AABE22C8157FB0044B037 /* OrderBookL2ViewModel.swift */,
 				9D6F11842C780E00007D22F3 /* Main.storyboard */,
 				9D6F11872C780E01007D22F3 /* Assets.xcassets */,
 				9D6F11892C780E01007D22F3 /* LaunchScreen.storyboard */,
@@ -386,6 +399,8 @@
 		9D6F11DD2C780EB0007D22F3 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9D8AABDB2C8157480044B037 /* ViewModel */,
+				9D8AABDA2C8157420044B037 /* View */,
 				9D6F11DE2C780EB0007D22F3 /* Presentation.h */,
 			);
 			path = Presentation;
@@ -396,6 +411,23 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9D8AABDA2C8157420044B037 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9D8AABDC2C81575D0044B037 /* PriceAndAmountCell.swift */,
+				9D8AABDE2C81578C0044B037 /* PriceAndAmountCellRO.swift */,
+				9D8AABE02C8157AD0044B037 /* StaticSizeTableView+DataSource.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9D8AABDB2C8157480044B037 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,6 +569,7 @@
 			);
 			name = Presentation;
 			packageProductDependencies = (
+				9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */,
 			);
 			productName = Presentation;
 			productReference = 9D6F11DC2C780EB0007D22F3 /* Presentation.framework */;
@@ -569,6 +602,7 @@
 					};
 					9D6F11DB2C780EB0007D22F3 = {
 						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -652,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8AABE42C8158340044B037 /* OrderBookL2ViewModel.swift in Sources */,
 				9D372CAE2C7B8369008AA829 /* Injector.swift in Sources */,
 				9D6F11832C780E00007D22F3 /* ViewController.swift in Sources */,
 				9D6F117F2C780E00007D22F3 /* AppDelegate.swift in Sources */,
@@ -686,6 +721,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D8AABDF2C81578C0044B037 /* PriceAndAmountCellRO.swift in Sources */,
+				9D8AABE12C8157AD0044B037 /* StaticSizeTableView+DataSource.swift in Sources */,
+				9D8AABDD2C81575D0044B037 /* PriceAndAmountCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,6 +1189,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1179,6 +1218,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1190,6 +1230,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1320,6 +1361,11 @@
 			productName = "RxCocoa-Dynamic";
 		};
 		9D6F122B2C78162A007D22F3 /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D6F11E72C780EE8007D22F3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
+		9D8AABE52C81589B0044B037 /* RxCocoa-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D6F11E72C780EE8007D22F3 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = "RxCocoa-Dynamic";
