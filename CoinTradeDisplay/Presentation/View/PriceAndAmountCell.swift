@@ -41,28 +41,7 @@ public class PriceAndAmountCell: UITableViewCell {
         
         guard let ro else { return }
         
-        if ro.type == .buy {
-            let width = self.contentView.frame.width
-            let halfWidth = (width) / 2
-            let x = halfWidth + halfWidth * (1 - ro.percentage)
-            let bgWidth = width - x
-            
-            self.percentageBackground.frame = .init(
-                origin: .init(x: x, y: 0),
-                size: .init(width: bgWidth, height: self.contentView.frame.height)
-            )
-            
-        } else {
-            
-            let width = self.contentView.frame.width
-            let halfWidth = (width) / 2
-            let bgWidth = halfWidth * ro.percentage
-            
-            self.percentageBackground.frame = .init(
-                origin: .init(x: 0, y: 0),
-                size: .init(width: bgWidth, height: self.contentView.frame.height)
-            )
-        }
+        
     }
     
     private func setLayout() {
@@ -104,6 +83,32 @@ public class PriceAndAmountCell: UITableViewCell {
         
         // background
         percentageBackground.backgroundColor = accentColor.withAlphaComponent(0.3)
+        
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut) {
+            let width = self.contentView.frame.width
+            
+            // Background
+            if ro.type == .buy {
+                let halfWidth = (width) / 2
+                let x = halfWidth + halfWidth * (1 - ro.percentage)
+                let bgWidth = width - x
+                
+                self.percentageBackground.frame = .init(
+                    origin: .init(x: x, y: 0),
+                    size: .init(width: bgWidth, height: self.contentView.frame.height)
+                )
+                
+            } else {
+                let halfWidth = (width) / 2
+                let bgWidth = halfWidth * ro.percentage
+                
+                self.percentageBackground.frame = .init(
+                    origin: .init(x: 0, y: 0),
+                    size: .init(width: bgWidth, height: self.contentView.frame.height)
+                )
+            }
+        }
     }
     
     private func setLabel(label1: UILabel, label2: UILabel, accentColor: UIColor, ro: PriceAndAmountCellRO) {
