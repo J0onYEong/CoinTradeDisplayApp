@@ -13,22 +13,34 @@ import Domain
 
 // MARK: TableView
 public class StaticSizeTableView: UITableView {
-    let tableViewHeight: CGFloat
+    
+    private let cellHeight: CGFloat
+    private var currentItemCount: Int = 0
+    private var tableViewHeight: CGFloat = 0.0
+    
+    public var itemCount: Int {
+        get {
+            currentItemCount
+        }
+        set {
+            currentItemCount = newValue
+            tableViewHeight = CGFloat(currentItemCount) * cellHeight
+            self.invalidateIntrinsicContentSize()
+        }
+    }
     
     public override var intrinsicContentSize: CGSize {
         .init(width: super.intrinsicContentSize.width, height: tableViewHeight)
     }
     
-    public init(cellCount: Int, cellHeight: CGFloat) {
-        self.tableViewHeight = CGFloat(cellCount) * cellHeight
+    public init(cellHeight: CGFloat) {
+        self.cellHeight = cellHeight
         super.init(frame: .zero, style: .plain)
         self.rowHeight = cellHeight
         self.backgroundColor = .clear
     }
     public required init?(coder: NSCoder) { return nil }
 }
-
-
 
 // MARK: TableViewDataSource
 public class CoinDataTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {

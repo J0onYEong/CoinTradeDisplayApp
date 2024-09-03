@@ -14,6 +14,9 @@ import Presentation
 // MARK: ViewModel
 public class OrderBookL2ViewModel {
     
+    // Config
+    let cellCount = 20
+    
     // Init
     let coinStreamUseCase: CoinStreamUseCase
     
@@ -47,9 +50,10 @@ public class OrderBookL2ViewModel {
         
         // 구독버튼 누를시 스트림 연결
         connectStreamButtonClicked
-            .flatMap { [coinStreamUseCase] _ in
-                coinStreamUseCase
-                    .getStream()
+            .compactMap { [weak self] in self?.cellCount }
+            .flatMap { [coinStreamUseCase] cellCount in
+                return coinStreamUseCase
+                    .getStream(itemLimit: cellCount)
             }
             .share()
             .bind(to: coinStream)
@@ -64,63 +68,67 @@ public class OrderBookL2ViewModel {
         
         
         // MARK: Buy
-        buyListRO = buyStream.map({ buyData in
+        buyListRO = buyStream.map({ [weak self]
+            buyData in
             
-            let maxAmount = buyData.max { lhs, rhs in lhs.accumulatedAmount < rhs.accumulatedAmount }?.accumulatedAmount
+            let accumulatedSum: Double = buyData.reduce(0.0) { partialResult, scalar in partialResult + Double(scalar.accumulatedAmount) }
             
-            var roList = buyData.map { vo in
+            var renderObjects: [PriceAndAmountCellRO] = []
+            var currentAccumulatedSum: Double = 0.0
+            
+            for data in buyData {
+                currentAccumulatedSum += Double(data.accumulatedAmount)
+                let percentage = currentAccumulatedSum / accumulatedSum
                 
-                var percentage: CGFloat = 0.0
-                
-                if let maxAmount, maxAmount != 0 {
-                    percentage = self.circularExp(target: Double(vo.accumulatedAmount), base: Double(maxAmount))
-                }
-                
-                return PriceAndAmountCellRO(
-                    type: .buy,
-                    price: vo.price,
-                    amount: vo.accumulatedAmount,
-                    percentage: percentage
+                renderObjects.append(
+                    .init(
+                        type: .buy,
+                        price: data.price,
+                        amount: data.accumulatedAmount,
+                        percentage: percentage
+                    )
                 )
             }
             
-            if roList.count < 20 {
-                let emptySize = 20 - roList.count
+            if let cellCount = self?.cellCount, renderObjects.count < cellCount {
+                let emptySize = cellCount - renderObjects.count
                 let emptyRoList: [PriceAndAmountCellRO] = (0..<emptySize).map { _ in .emptyObject(.buy) }
-                roList.append(contentsOf: emptyRoList)
+                renderObjects.append(contentsOf: emptyRoList)
             }
             
-            return roList
+            return renderObjects
         })
         .asDriver(onErrorDriveWith: .never())
         
         // MARK: Sell
-        sellListRO = sellStream.map({ sellData in
+        sellListRO = sellStream.map({ [weak self] sellData in
             
-            let maxAmount = sellData.max { lhs, rhs in lhs.accumulatedAmount < rhs.accumulatedAmount }?.accumulatedAmount
+            let accumulatedSum: Double = sellData.reduce(0.0) { partialResult, scalar in partialResult + Double(scalar.accumulatedAmount) }
             
-            var roList = sellData.map { vo in
+            var renderObjects: [PriceAndAmountCellRO] = []
+            var currentAccumulatedSum: Double = 0.0
+            
+            for data in sellData {
+                currentAccumulatedSum += Double(data.accumulatedAmount)
+                let percentage = currentAccumulatedSum / accumulatedSum
                 
-                var percentage: CGFloat = 0.0
-                if let maxAmount, maxAmount != 0 {
-                    percentage = self.circularExp(target: Double(vo.accumulatedAmount), base: Double(maxAmount))
-                }
-                
-                return PriceAndAmountCellRO(
-                    type: .sell,
-                    price: vo.price,
-                    amount: vo.accumulatedAmount,
-                    percentage: percentage
+                renderObjects.append(
+                    .init(
+                        type: .sell,
+                        price: data.price,
+                        amount: data.accumulatedAmount,
+                        percentage: percentage
+                    )
                 )
             }
             
-            if roList.count < 20 {
-                let emptySize = 20 - roList.count
+            if let cellCount = self?.cellCount, renderObjects.count < cellCount {
+                let emptySize = cellCount - renderObjects.count
                 let emptyRoList: [PriceAndAmountCellRO] = (0..<emptySize).map { _ in .emptyObject(.sell) }
-                roList.append(contentsOf: emptyRoList)
+                renderObjects.append(contentsOf: emptyRoList)
             }
             
-            return roList
+            return renderObjects
         })
         .asDriver(onErrorDriveWith: .never())
     }

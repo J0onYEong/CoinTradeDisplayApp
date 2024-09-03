@@ -30,10 +30,10 @@ class ViewController: UIViewController {
         return button
     }()
     
-    let sellTable = StaticSizeTableView(cellCount: 20, cellHeight: 30)
+    let sellTable = StaticSizeTableView(cellHeight: 30)
     let sellTableDataSource = CoinDataTableDataSource(type: .sell)
     
-    let buyTable = StaticSizeTableView(cellCount: 20, cellHeight: 30)
+    let buyTable = StaticSizeTableView(cellHeight: 30)
     let buyTableDataSource = CoinDataTableDataSource(type: .buy)
 
     let disposeBag = DisposeBag()
@@ -109,6 +109,9 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         // Output
+        buyTable.itemCount = viewModel.cellCount
+        sellTable.itemCount = viewModel.cellCount
+        
         viewModel
             .buyListRO?
             .drive(buyTableDataSource.data)

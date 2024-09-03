@@ -15,7 +15,7 @@ public protocol CoinStreamUseCase {
     func startStream()
     
     /// #2. 웹소켓 스트림을 획득합니다.
-    func getStream() -> Observable<OrderBookTableVO>
+    func getStream(itemLimit: Int) -> Observable<OrderBookTableVO>
     
     /// #3. 웹소켓 스트림을 종료합니다.
     func stopStream()
@@ -37,13 +37,13 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
         orderBook2Repository.startSteam(coinSymbol: "XBTUSD")
     }
     
-    public func getStream() -> Observable<OrderBookTableVO> {
+    public func getStream(itemLimit: Int) -> Observable<OrderBookTableVO> {
         orderBook2Repository.setSream(
             bufferSize: 10,
-            timeSpan: 50
+            timeSpan: 30
         )
         return orderBook2Repository
-            .joinStream(itemLimit: 20)
+            .joinStream(itemLimit: itemLimit)
     }
     
     public func stopStream() {
