@@ -38,12 +38,13 @@ public class DefaultCoinStreamUseCase: CoinStreamUseCase {
     }
     
     public func getStream(itemLimit: Int) -> Observable<OrderBookTableVO> {
-        orderBook2Repository.setSream(
-            bufferSize: 10,
-            timeSpan: 30
-        )
-        return orderBook2Repository
-            .joinStream(itemLimit: itemLimit)
+        
+        orderBook2Repository
+            .joinStream(
+                bufferSize: 10,
+                timeSpan: 300,
+                itemLimit: itemLimit
+            )
     }
     
     public func stopStream() {
